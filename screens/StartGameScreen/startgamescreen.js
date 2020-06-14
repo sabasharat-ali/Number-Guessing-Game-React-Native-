@@ -14,6 +14,7 @@ import {
 import Card from "../../components/card/card";
 import Colors from "../../constants/colors";
 import Input from "../../components/input/input";
+import NumberContainer from "../../components/number-container/number-container";
 
 const StartGameScreen = (props) => {
   const [enteredValue, setEnteredValue] = useState("");
@@ -41,7 +42,20 @@ const StartGameScreen = (props) => {
     }
     setEnteredValue("");
     setConfirmed("true");
+    setSelectedNumber(chosenNumber);
+    Keyboard.dismiss();
   };
+  let confirmedOutput;
+
+  if (confirmed) {
+    confirmedOutput = (
+      <Card style={styles.summaryContainer}>
+        <Text>YOU SELECTED</Text>
+        <NumberContainer>{selectedNumber}</NumberContainer>
+        <Button title="START GAME" />
+      </Card>
+    );
+  }
 
   //WRAPPING WITH EXTRA TOUCHABLE WITHOUT FEEDBACK BECAUSE ON iOS THE KEYBOARD IS NOT DISMISSING BY TAPPING ANYWHERE ELSE WHILE WE HAVE THAT FUNCTIONALITY ON ANDROID
 
@@ -84,6 +98,7 @@ const StartGameScreen = (props) => {
             </View>
           </View>
         </Card>
+        {confirmedOutput}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -119,6 +134,10 @@ const styles = StyleSheet.create({
   input: {
     width: 50,
     textAlign: "center",
+  },
+  summaryContainer: {
+    marginTop: 20,
+    alignItems: "center",
   },
 });
 
