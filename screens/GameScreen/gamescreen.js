@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
+import {Ionicons} from '@expo/vector-icons'
 
 import NumberContainer from "../../components/number-container/number-container";
 import Card from "../../components/card/card";
@@ -18,10 +19,10 @@ const randomNumberBetween = (min, max, exclude) => {
 };
 
 const GameScreen = (props) => {
-  const [currentGuess, setCurrentGuess] = useState(
-    randomNumberBetween(1, 100, props.UserChoice)
-  );
+  const initialGuess = randomNumberBetween(1, 100, props.UserChoice)
+  const [currentGuess, setCurrentGuess] = useState(initialGuess)
   const [rounds, setRounds] = useState(0);
+  const [pastGuess, setPastGuess] = useState([initialGuess])
 
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
@@ -30,7 +31,7 @@ const GameScreen = (props) => {
 
   useEffect(() => {
     if (currentGuess === UserChoice) {
-      onGameOver(rounds);
+      onGameOver(pastGuess.length);
     }
   }, [currentGuess, UserChoice, onGameOver]);
 
@@ -47,7 +48,7 @@ const GameScreen = (props) => {
     if (direction === "lower") {
       currentHigh.current = currentGuess;
     } else {
-      currentLow.current = currentGuess;
+      currentLow.current = currentGuess + 1;
     }
     const nextGuess = randomNumberBetween(
       currentLow.current,
@@ -55,7 +56,8 @@ const GameScreen = (props) => {
       currentGuess
     );
     setCurrentGuess(nextGuess);
-    setRounds((currentRound) => currentRound + 1);
+    // setRounds((currentRound) => currentRound + 1);
+    setPastGuess(pastGuesses => [nextGuess, ...pastGuesses])
   };
 
   return (
@@ -64,12 +66,13 @@ const GameScreen = (props) => {
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.buttonContainer}>
         <MainButton onPress={nextGuessHandler.bind(this, "lower")}>
-          LOWER
+          <Ionicons name='md-remove' size={24} color='white'/>
         </MainButton>
         <MainButton onPress={nextGuessHandler.bind(this, "greater")}>
-          GREATER
+          <Ionicons name='md-add' size={24} color='white'/>
         </MainButton>
       </Card>
+      {pastGuess.map(guess=> (<View key= {guess}><Text>{guess}</Text></View>))}
     </View>
   );
 };
