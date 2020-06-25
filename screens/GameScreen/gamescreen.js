@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
-import {Ionicons} from '@expo/vector-icons'
+import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import NumberContainer from "../../components/number-container/number-container";
 import Card from "../../components/card/card";
 import MainButton from "../../components/main-button/main-button";
+import DefaultStyles from "../../constants/default-styles";
 
 const randomNumberBetween = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -18,11 +19,18 @@ const randomNumberBetween = (min, max, exclude) => {
   }
 };
 
+const renderListItem = (value, numOfRound) => (
+  <View key={value} style={styles.listItem}>
+    <Text style={DefaultStyles.bodyText}>#{numOfRound}</Text>
+    <Text style={DefaultStyles.bodyText}>{value}</Text>
+  </View>
+);
+
 const GameScreen = (props) => {
-  const initialGuess = randomNumberBetween(1, 100, props.UserChoice)
-  const [currentGuess, setCurrentGuess] = useState(initialGuess)
+  const initialGuess = randomNumberBetween(1, 100, props.UserChoice);
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [rounds, setRounds] = useState(0);
-  const [pastGuess, setPastGuess] = useState([initialGuess])
+  const [pastGuess, setPastGuess] = useState([initialGuess]);
 
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
@@ -57,7 +65,7 @@ const GameScreen = (props) => {
     );
     setCurrentGuess(nextGuess);
     // setRounds((currentRound) => currentRound + 1);
-    setPastGuess(pastGuesses => [nextGuess, ...pastGuesses])
+    setPastGuess((pastGuesses) => [nextGuess, ...pastGuesses]);
   };
 
   return (
@@ -66,13 +74,17 @@ const GameScreen = (props) => {
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.buttonContainer}>
         <MainButton onPress={nextGuessHandler.bind(this, "lower")}>
-          <Ionicons name='md-remove' size={24} color='white'/>
+          <Ionicons name="md-remove" size={24} color="white" />
         </MainButton>
         <MainButton onPress={nextGuessHandler.bind(this, "greater")}>
-          <Ionicons name='md-add' size={24} color='white'/>
+          <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
-      {pastGuess.map(guess=> (<View key= {guess}><Text>{guess}</Text></View>))}
+      <View style={styles.list}>
+        <ScrollView>
+          {pastGuess.map((guess, index) => renderListItem(guess, index + 1))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -89,6 +101,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
     maxWidth: "80%",
     width: 300,
+  },
+  list: {
+    width: "80%",
+  },
+  listItem: {
+    borderColor: "#ccc",
+    borderWidth: 1,
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 });
 
