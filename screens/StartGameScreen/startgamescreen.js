@@ -21,7 +21,6 @@ const StartGameScreen = (props) => {
   const [enteredValue, setEnteredValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState("");
-  
 
   const numberInputHandler = (inputText) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ""));
@@ -123,8 +122,9 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    width: 300,
-    maxWidth: "80%",
+    minWidth: 300,
+    width: "80%",
+    maxWidth: "95%",
     alignItems: "center",
   },
 
