@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import NumberContainer from "../../components/number-container/number-container";
@@ -31,6 +38,23 @@ const GameScreen = (props) => {
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [rounds, setRounds] = useState(0);
   const [pastGuess, setPastGuess] = useState([initialGuess]);
+  const [availableDeviceWidth, setAvailbleDeviceWidth] = useState(
+    Dimensions.get("window").width
+  );
+  const [availableDeviceHeight, setAvailbleDeviceHeight] = useState(
+    Dimensions.get("window").height
+  );
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setAvailbleDeviceWidth(Dimensions.get("window").width);
+      setAvailbleDeviceHeight(Dimensions.get("window").height);
+    };
+    Dimensions.addEventListener("change", updateLayout);
+    return () => {
+      Dimensions.removeEventListener("change", updateLayout);
+    };
+  });
 
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
@@ -68,6 +92,36 @@ const GameScreen = (props) => {
     setPastGuess((pastGuesses) => [nextGuess, ...pastGuesses]);
   };
 
+  let listContainerStyle = styles.listContainer;
+
+  if (availableDeviceWidth < 350) {
+    listContainerStyle = styles.listContainer;
+  }
+
+  if (availableDeviceHeight < 500) {
+    return (
+      <View style={styles.screen}>
+        <Text style={DefaultStyles.title}>OPPONENT'S GUESS</Text>
+        <View style={styles.controls}>
+          <MainButton onPress={nextGuessHandler.bind(this, "lower")}>
+            <Ionicons name="md-remove" size={24} color="white" />
+          </MainButton>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <MainButton onPress={nextGuessHandler.bind(this, "greater")}>
+            <Ionicons name="md-add" size={24} color="white" />
+          </MainButton>
+        </View>
+        <View style={styles.listContainer}>
+          <ScrollView contentContainerStyle={styles.list}>
+            {pastGuess.map((guess, index) =>
+              renderListItem(guess, pastGuess.length - index)
+            )}
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <Text>OPPONENT'S GUESS</Text>
@@ -103,6 +157,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     maxWidth: "80%",
     width: 300,
+  },
+  controls: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "80%",
+    alignItems: "center",
   },
   listContainer: {
     flex: 1, //WITHOUT ADDING THIS THE LIST IS NOT SCROLLABLE ON ANDROID
