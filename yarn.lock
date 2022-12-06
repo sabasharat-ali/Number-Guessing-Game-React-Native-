@@ -2044,9 +2044,9 @@ decamelize@^1.1.1, decamelize@^1.2.0:
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-assign@^3.0.0:
   version "3.0.0"
@@ -3746,6 +3746,11 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
+node-bin-setup@^1.0.0:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/node-bin-setup/-/node-bin-setup-1.1.3.tgz#d45d5220e3b2ecc3a94263a56116f727f6c1bb14"
+  integrity sha512-opgw9iSCAzT2+6wJOETCpeRYAQxSopqQ2z+N6BXwIMsQQ7Zj5M8MaafQY8JMlolRR6R1UXg2WmhKp0p9lSOivg==
+
 node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
@@ -3784,6 +3789,23 @@ node-releases@^1.1.53:
   version "1.1.58"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.58.tgz#8ee20eef30fa60e52755fcc0942def5a734fe935"
   integrity sha512-NxBudgVKiRh/2aPWMgPR7bPTX0VPmGx5QBwCtdHitnqFE5/O8DeBXuIMH1nwNnw/aMo6AjOrpsHzfY3UbUJ7yg==
+
+node.js@0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/node.js/-/node.js-0.0.1-security.tgz#ad5a038f1c70dc7a5f95c8df524cee98534d62a6"
+  integrity sha512-8tWQiyg/3ggdLTrtfgj/NxmZpC20eB1U5VNkqt2dbelpcr3NrfjpEE3DgifpBOCJ4Xu9Obvu8iju63ViQW3Hvg==
+
+node@^14.5.0:
+  version "14.21.0"
+  resolved "https://registry.yarnpkg.com/node/-/node-14.21.0.tgz#8d44e235e55fce09732e61ce65302615deb8e563"
+  integrity sha512-2uqYA9wsGorHxo+ioIhDePZbpwc7Rd6mrfddEDNGGOZ34ANCxlA+S5gDdvgEu1Nml7Bwgh8re7cmTcBT8sZ2RQ==
+  dependencies:
+    node-bin-setup "^1.0.0"
+
+nodejs@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/nodejs/-/nodejs-0.0.0.tgz#4722fa2e18ac4eb73a42ae16d01e3584a12b7531"
+  integrity sha512-1V+0HwaB/dhxzidEFc4uJ3k52gLI4B6YBZgJIofjwYCSAkD6CI0me6TDBT2QM2nbGWNxCHcq9/wVynzQYZOhUg==
 
 noop-fn@^1.0.0:
   version "1.0.0"
